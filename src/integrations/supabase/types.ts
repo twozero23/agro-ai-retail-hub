@@ -9,7 +9,173 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      customers: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          phone_number: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          phone_number: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          phone_number?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          brand: string
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          price_per_bag: number
+          updated_at: string
+        }
+        Insert: {
+          brand: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          price_per_bag: number
+          updated_at?: string
+        }
+        Update: {
+          brand?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          price_per_bag?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          role: Database["public"]["Enums"]["user_role"] | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      transaction_items: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string
+          quantity: number
+          subtotal: number
+          transaction_id: string
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id: string
+          quantity: number
+          subtotal: number
+          transaction_id: string
+          unit_price: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string
+          quantity?: number
+          subtotal?: number
+          transaction_id?: string
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transaction_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transaction_items_transaction_id_fkey"
+            columns: ["transaction_id"]
+            isOneToOne: false
+            referencedRelation: "transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      transactions: {
+        Row: {
+          created_at: string
+          created_by: string
+          customer_id: string
+          id: string
+          invoice_number: string
+          merchant_id: string
+          payment_method: string | null
+          total_amount: number
+          total_bags: number
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          customer_id: string
+          id?: string
+          invoice_number: string
+          merchant_id: string
+          payment_method?: string | null
+          total_amount?: number
+          total_bags?: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          customer_id?: string
+          id?: string
+          invoice_number?: string
+          merchant_id?: string
+          payment_method?: string | null
+          total_amount?: number
+          total_bags?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +184,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      user_role: "admin" | "manager" | "staff"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +299,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      user_role: ["admin", "manager", "staff"],
+    },
   },
 } as const
