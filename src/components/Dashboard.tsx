@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -79,7 +78,7 @@ const Dashboard = () => {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">₹{stats?.totalRevenue.toLocaleString()}</div>
+            <div className="text-2xl font-bold">PKR {stats?.totalRevenue.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">
               From {stats?.totalTransactions} transactions
             </p>
@@ -138,7 +137,7 @@ const Dashboard = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="brand" />
                 <YAxis />
-                <Tooltip formatter={(value) => [`₹${Number(value).toLocaleString()}`, 'Revenue']} />
+                <Tooltip formatter={(value) => [`PKR ${Number(value).toLocaleString()}`, 'Revenue']} />
                 <Bar dataKey="revenue" fill="#22c55e" />
               </BarChart>
             </ResponsiveContainer>
@@ -202,7 +201,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-green-600">₹{Number(transaction.total_amount).toLocaleString()}</p>
+                  <p className="font-bold text-green-600">PKR {Number(transaction.total_amount).toLocaleString()}</p>
                   <p className="text-sm text-muted-foreground">{transaction.total_bags} bags</p>
                 </div>
               </div>

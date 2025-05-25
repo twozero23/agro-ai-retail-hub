@@ -158,7 +158,7 @@ const ProductManagement = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="price">Price per Bag (₹)</Label>
+                <Label htmlFor="price">Price per Bag (PKR)</Label>
                 <Input
                   id="price"
                   type="number"
@@ -199,7 +199,7 @@ const ProductManagement = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <p className="text-2xl font-bold text-green-600">₹{Number(product.price_per_bag).toLocaleString()}</p>
+                <p className="text-2xl font-bold text-green-600">PKR {Number(product.price_per_bag).toLocaleString()}</p>
                 <p className="text-sm text-muted-foreground">per bag</p>
                 {product.description && (
                   <p className="text-sm text-muted-foreground mt-2">{product.description}</p>

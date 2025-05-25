@@ -225,7 +225,7 @@ const TransactionForm = () => {
                   <SelectContent>
                     {products?.map((product) => (
                       <SelectItem key={product.id} value={product.id}>
-                        {product.name} - {product.brand} (₹{product.price_per_bag})
+                        {product.name} - {product.brand} (PKR {product.price_per_bag})
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -272,8 +272,8 @@ const TransactionForm = () => {
                             <Plus className="h-4 w-4" />
                           </Button>
                           <div className="text-right min-w-[80px]">
-                            <p className="font-medium">₹{(item.price * item.quantity).toLocaleString()}</p>
-                            <p className="text-sm text-muted-foreground">₹{item.price}/bag</p>
+                            <p className="font-medium">PKR {(item.price * item.quantity).toLocaleString()}</p>
+                            <p className="text-sm text-muted-foreground">PKR {item.price}/bag</p>
                           </div>
                           <Button
                             type="button"
@@ -291,7 +291,7 @@ const TransactionForm = () => {
                   <div className="mt-4 pt-4 border-t">
                     <div className="flex justify-between items-center">
                       <div>
-                        <p className="text-lg font-semibold">Total: ₹{totalAmount.toLocaleString()}</p>
+                        <p className="text-lg font-semibold">Total: PKR {totalAmount.toLocaleString()}</p>
                         <p className="text-sm text-muted-foreground">{totalBags} bags</p>
                       </div>
                       <Button type="submit" size="lg" disabled={createTransaction.isPending}>
