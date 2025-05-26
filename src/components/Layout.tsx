@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
@@ -9,7 +8,8 @@ import {
   Users, 
   LogOut, 
   Menu,
-  Sprout
+  Sprout,
+  FileSpreadsheet
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -28,6 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange }) => 
     { id: 'transactions', label: 'New Sale', icon: ShoppingCart },
     { id: 'products', label: 'Products', icon: Package },
     { id: 'customers', label: 'Customers', icon: Users },
+    { id: 'reports', label: 'Reports', icon: FileSpreadsheet },
   ];
 
   return (
