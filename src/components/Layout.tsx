@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { 
   LayoutDashboard, 
   ShoppingCart, 
@@ -32,31 +34,34 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange }) => 
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Mobile header */}
-      <div className="lg:hidden bg-white border-b px-4 py-3 flex items-center justify-between">
+      <div className="lg:hidden bg-white dark:bg-gray-800 border-b dark:border-gray-700 px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Sprout className="h-6 w-6 text-green-600" />
-          <span className="font-bold text-green-800">Kisan Card</span>
+          <span className="font-bold text-green-800 dark:text-green-400">Kisan Card</span>
         </div>
-        <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(!sidebarOpen)}>
-          <Menu className="h-5 w-5" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(!sidebarOpen)}>
+            <Menu className="h-5 w-5" />
+          </Button>
+        </div>
       </div>
 
       <div className="flex">
         {/* Sidebar */}
         <div className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-white border-r transform transition-transform lg:translate-x-0 lg:static lg:inset-0",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 transform transition-transform lg:translate-x-0 lg:static lg:inset-0",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}>
           <div className="flex flex-col h-full">
-            <div className="p-6 border-b">
+            <div className="p-6 border-b dark:border-gray-700">
               <div className="flex items-center gap-2">
                 <Sprout className="h-8 w-8 text-green-600" />
                 <div>
-                  <h1 className="font-bold text-xl text-green-800">Kisan Card</h1>
-                  <p className="text-sm text-gray-600">Fertilizer Management</p>
+                  <h1 className="font-bold text-xl text-green-800 dark:text-green-400">Kisan Card</h1>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Fertilizer Management</p>
                 </div>
               </div>
             </div>
@@ -81,15 +86,20 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, onTabChange }) => 
               })}
             </nav>
             
-            <div className="p-4 border-t">
+            <div className="p-4 border-t dark:border-gray-700">
               <div className="mb-4">
-                <p className="text-sm font-medium">{user?.email}</p>
-                <p className="text-xs text-gray-500">Staff Member</p>
+                <p className="text-sm font-medium dark:text-gray-200">{user?.email}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Staff Member</p>
               </div>
-              <Button variant="outline" className="w-full" onClick={signOut}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Sign Out
-              </Button>
+              <div className="flex items-center gap-2">
+                <div className="hidden lg:block">
+                  <ThemeToggle />
+                </div>
+                <Button variant="outline" className="flex-1" onClick={signOut}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
+                </Button>
+              </div>
             </div>
           </div>
         </div>
