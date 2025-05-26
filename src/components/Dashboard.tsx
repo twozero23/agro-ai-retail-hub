@@ -1,12 +1,17 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
-import { ShoppingCart, Users, Package, TrendingUp } from 'lucide-react';
+import { ShoppingCart, Users, Package, TrendingUp, Plus, FileText } from 'lucide-react';
 
-const Dashboard = () => {
+interface DashboardProps {
+  onTabChange?: (tab: string) => void;
+}
+
+const Dashboard = ({ onTabChange }: DashboardProps) => {
   const { data: stats } = useQuery({
     queryKey: ['dashboard-stats'],
     queryFn: async () => {
@@ -71,6 +76,45 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-6">
+      {/* Quick Access Buttons */}
+      <div className="grid gap-4 md:grid-cols-4">
+        <Button 
+          onClick={() => onTabChange?.('transactions')} 
+          className="h-16 flex flex-col gap-1"
+          variant="outline"
+        >
+          <Plus className="h-6 w-6" />
+          <span className="text-sm font-medium">New Sale</span>
+        </Button>
+        
+        <Button 
+          onClick={() => onTabChange?.('products')} 
+          className="h-16 flex flex-col gap-1"
+          variant="outline"
+        >
+          <Package className="h-6 w-6" />
+          <span className="text-sm font-medium">Products</span>
+        </Button>
+        
+        <Button 
+          onClick={() => onTabChange?.('customers')} 
+          className="h-16 flex flex-col gap-1"
+          variant="outline"
+        >
+          <Users className="h-6 w-6" />
+          <span className="text-sm font-medium">Customers</span>
+        </Button>
+        
+        <Button 
+          onClick={() => onTabChange?.('reports')} 
+          className="h-16 flex flex-col gap-1"
+          variant="outline"
+        >
+          <FileText className="h-6 w-6" />
+          <span className="text-sm font-medium">Reports</span>
+        </Button>
+      </div>
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

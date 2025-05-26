@@ -13,7 +13,7 @@ const MainApp = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard onTabChange={setActiveTab} />;
       case 'transactions':
         return <TransactionForm />;
       case 'products':
@@ -23,7 +23,7 @@ const MainApp = () => {
       case 'reports':
         return <Reports />;
       default:
-        return <Dashboard />;
+        return <Dashboard onTabChange={setActiveTab} />;
     }
   };
 
