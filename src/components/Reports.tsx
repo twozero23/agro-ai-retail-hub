@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { FileSpreadsheet, Import, Export } from 'lucide-react';
+import { FileSpreadsheet, Import, Download } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const Reports = () => {
@@ -20,7 +19,7 @@ const Reports = () => {
         .from('transactions')
         .select(`
           *,
-          customers(name, phone),
+          customers(phone_number),
           transaction_items(
             quantity,
             subtotal,
@@ -98,8 +97,7 @@ const Reports = () => {
     setIsExporting(true);
     const salesData = salesReport?.map(transaction => ({
       'Invoice Number': transaction.invoice_number,
-      'Customer Name': transaction.customers?.name || 'N/A',
-      'Customer Phone': transaction.customers?.phone || 'N/A',
+      'Customer Phone': transaction.customers?.phone_number || 'N/A',
       'Total Amount (PKR)': transaction.total_amount,
       'Total Bags': transaction.total_bags,
       'Date': new Date(transaction.created_at).toLocaleDateString(),
@@ -181,7 +179,7 @@ const Reports = () => {
                   disabled={isExporting}
                   size="sm"
                 >
-                  <Export className="h-4 w-4 mr-2" />
+                  <Download className="h-4 w-4 mr-2" />
                   Export CSV
                 </Button>
               </div>
@@ -191,7 +189,7 @@ const Reports = () => {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Invoice</TableHead>
-                      <TableHead>Customer</TableHead>
+                      <TableHead>Customer Phone</TableHead>
                       <TableHead>Amount</TableHead>
                       <TableHead>Date</TableHead>
                     </TableRow>
@@ -202,7 +200,7 @@ const Reports = () => {
                         <TableCell className="font-medium">
                           {transaction.invoice_number}
                         </TableCell>
-                        <TableCell>{transaction.customers?.name || 'N/A'}</TableCell>
+                        <TableCell>{transaction.customers?.phone_number || 'N/A'}</TableCell>
                         <TableCell>PKR {Number(transaction.total_amount).toLocaleString()}</TableCell>
                         <TableCell>
                           {new Date(transaction.created_at).toLocaleDateString()}
@@ -243,7 +241,7 @@ const Reports = () => {
                   disabled={isExporting}
                   size="sm"
                 >
-                  <Export className="h-4 w-4 mr-2" />
+                  <Download className="h-4 w-4 mr-2" />
                   Export CSV
                 </Button>
               </div>
@@ -300,11 +298,11 @@ const Reports = () => {
                 </p>
                 <div className="space-y-2">
                   <Button onClick={exportSalesReport} variant="outline" className="w-full">
-                    <Export className="h-4 w-4 mr-2" />
+                    <Download className="h-4 w-4 mr-2" />
                     Export Sales to CSV
                   </Button>
                   <Button onClick={exportProductReport} variant="outline" className="w-full">
-                    <Export className="h-4 w-4 mr-2" />
+                    <Download className="h-4 w-4 mr-2" />
                     Export Products to CSV
                   </Button>
                 </div>
@@ -317,11 +315,11 @@ const Reports = () => {
                 </p>
                 <div className="space-y-2">
                   <Button onClick={exportSalesReport} variant="outline" className="w-full">
-                    <Export className="h-4 w-4 mr-2" />
+                    <Download className="h-4 w-4 mr-2" />
                     Export Sales to CSV
                   </Button>
                   <Button onClick={exportProductReport} variant="outline" className="w-full">
-                    <Export className="h-4 w-4 mr-2" />
+                    <Download className="h-4 w-4 mr-2" />
                     Export Products to CSV
                   </Button>
                 </div>
